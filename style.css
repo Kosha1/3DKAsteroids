@@ -1,0 +1,78 @@
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width:100%;
+    margin: 0;
+}
+
+/* make the canvas fill its container */
+#glCanvas {
+    display: block;
+}
+
+.container {
+    position: relative;
+    height: 100%;
+}
+
+#scoreInfo {
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    color: white;
+    text-align: center;
+}
+
+#fps{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: white;
+}
+
+#overlay {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: white;
+}
+
+#playerShipInfo{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: white;
+}
+
+/*Home Screen Elements CSS*/
+#HomeScreen{
+    position: absolute;
+    top: 25%;
+    left: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+#titleText{
+    color:white;
+}
+#assetStatus{
+    color: white;
+}
+
+.homeButton{
+    width: 10%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+/*Game Over Screen Elements CSS*/
+#GameOverScreen{
+    color: black;
+    position: absolute;
+    top: 25%;
+    left: 10px;
+    width: 100%;
+    text-align: center;
+    display: none;
+}

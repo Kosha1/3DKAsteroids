@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>3D KAsteroids</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- (from V8.dev/features/modules) Scripts with type=module have deferred execution by default.
+     They are loaded in parallel with HTML parsing and executed after HTML parsing is complete
+     Can put in head and not worry about accessing HTML elements in the module script-->
+    <script src="main.js" type="module"></script>
+    <script src="gl-matrix.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <canvas id="glcanvas""></canvas>
+      <div id="fps">FPS: <span id="Avgfps"></span></div>
+      <div id="PlayScreen">
+        <div id="overlay">
+          <!--<div>FPS: <span id="fps"></span></div>-->
+          <!--<div>Avg FPS: <span id="Avgfps"></span></div>-->
+          <br>
+          <div>Speed: <span id=speed></span></div>
+          <div>Ship Explosions: <span id=shipExp></span></div>
+        </div>
+        <div id = "playerShipInfo">
+          <div>Ship Locator</div>
+          <div>Distance: <span id="dist"></span></div>
+          <div>Yaw: <span id="yawAngle"></span></div>
+          <div>Pitch: <span id="pitchAngle"></span></div>
+        </div>
+        <div id="scoreInfo">Asteroids Destroyed: <span id="astDestr"></span> Time Elapsed: <span id="upTime"></span></div>
+      </div>
+
+      <div id="HomeScreen">
+        <h1 id="titleText">3D KAsteroids</h1>
+        <div>
+          <button type="button" class="homeButton" id="playButton">Play</button>
+        </div>
+        <div>
+          <button type="button" class="homeButton" onclick="window.open('SecondaryPages/help.html', '_blank')">Help</button>
+        </div>
+        <div>
+          <button type="button" class="homeButton" onclick="window.open('SecondaryPages/about.html', '_blank')">About</button>
+        </div>
+        <p id="assetStatus">Game Assets Loading...</p>
+      </div>
+
+      <div id="GameOverScreen">
+        <h1>Game Over</h1>
+        <h1>Asteroids Destroyed: <span id="finalAstCount"></span></h1>
+        <h1>Time Survived: <span id="finalTime"></span></h1>
+        <h1>Score: <span id="finalScore"></span></h1>
+        <h2>Press Esc To Return To Menu</h2>
+      </div>
+    </div>    
+  </body>
+</html>

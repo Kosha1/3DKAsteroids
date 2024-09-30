@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Help</title>
+        <style>
+            body{
+                /*Background Image*/
+                background-image: url('background.png');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: 100% 100%;
+
+                /*Global Text Specification*/
+                color: white;
+            }
+            ul{
+                margin: 10px;
+                list-style-type: none;
+            }
+            h3{
+                margin: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Objective</h2>
+        <p>
+            Our command ship has been disabled after an enemy attack <br>
+            Sweep the asteroid field and protect the ship from collsions. The ship will undergo critical failure if two
+            asteroids strike it
+        </p>
+        <h2>Controls</h2>
+        <p>Space: Fire</p>
+        <h3>Steering</h3>
+        <ul>
+            <li>
+                W: Pitch Up &emsp; S: Pitch Down <br>
+                A: Yaw Left &emsp; D: Yaw Right <br>
+                Left Arrow: Roll Counterclockwise &emsp; Right Arrow: Roll Clockwise <br>
+            </li>
+        </ul>
+        <h3>Speed</h3>
+        <ul>
+            <li>
+                Up Arrow: Increase Speed &emsp; Down Arrow: Reduce Speed (can go down to a speed of 0) <br>
+                Top left corner of screen has an indicator of the current speed
+            </li>
+        </ul>
+        <h3>Ship View</h3>
+        <ul>
+            <li>
+                A view of the ship and dangerously close asteroids is provided in the bottom right <br>
+                Press X to change between a front view and top view of the ship <br>
+                Color represents depth. Red objects are closer to the camera and white objects are farther
+            </li>
+        </ul>
+        <h3>Miscellaneous</h3>
+        <ul>
+            <li>
+                The top right corner of screen has useful information in case you get disoriented <br>
+                The pitch and yaw values represent the angles to rotate in order to head towards the command ship <br>
+                Positive Yaw Angle: Rotate Right &emsp; Negative Yaw Angle: Rotate Left <br>
+                Positive Pitch Angle: Rotate Up &emsp; Negative Yaw Angle: Rotate Down <br>
+                Note: First get the yaw angle close to 0 and then look at the pitch.
+                Changing the pitch angle first will also change the yaw angle
+            </li>
+        </ul>
+
+        <h2>Warning!</h2>
+        <p>
+            This game heavily consumes GPU resources (and drains battery quickly). If your FPS is significantly less than 60 (or whatever your 
+            monitor's refresh rate is), the game will not be very playable <br>
+            Try running it on a device with a better video card
+        </p>
+        
+
+        <!--
+        <h2>Flight</h2>
+        <h3>Steering</h3>
+        <p>
+            W: Pitch Up &emsp; S: Pitch Down <br>
+            A: Yaw Left &emsp; D: Yaw Right <br>
+            Left Arrow: Roll Counterclockwise &emsp; Right Arrow: Roll Clockwise <br>
+        </p>
+        <h3>Speed</h3>
+        <p>Up Arrow: Increase Speed &emsp; Down Arrow: Reduce Speed (can go down to a speed of 0)</p>
+        <p>Space: Fire</p>
+
+        <h2>Ship View</h2>
+        <p>
+            A view of the ship and dangerously close asteroids is provided in the bottom right <br>
+            Press X to change between a front view and top view of the ship <br>
+            Color represents depth. Red objects are closer to the camera and white objects are farther
+        </p>
+        -->
+    </body>
+</html>
