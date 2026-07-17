@@ -37,9 +37,6 @@ class Asteroid{
 
 
         this.mesh.transformMatrix = glMatrix.mat4.create();//!!!!!overrides the mesh transform matrix of the original model!!!!!
-
-        //glMatrix.mat4.invert(this.invMeshTransform, mesh.transformMatrix);
-        //console.log(this.mesh.transformMatrix);
         
         this.rotationAxis = glMatrix.vec3.fromValues(0.0, 1.0, 0.0);
 
@@ -127,53 +124,6 @@ class Asteroid{
     }
 
     recalcBoundingBox(){
-        /*
-        const localMax = glMatrix.vec3.create();//bounding box centered at (0,0,0)
-        const localMin = glMatrix.vec3.create();
-        glMatrix.vec3.scale(localMax, this.defaultMax, this.scale);
-        glMatrix.vec3.scale(localMin, this.defaultMin, this.scale);
-
-
-        //const translationVec = glMatrix.vec3.create();
-        //glMatrix.vec3.subtract(translationVec, this.worldPos, this.scaledCenter);
-        glMatrix.vec3.subtract(localMax, localMax, this.scaledCenter);
-        glMatrix.vec3.subtract(localMin, localMin, this.scaledCenter);
-
-
-
-        glMatrix.mat3.copy(this.currentMax, this.worldPos);
-        glMatrix.mat3.copy(this.currentMin, this.worldPos);
-        //glMatrix.vec3.zero(this.currentMax);
-        //glMatrix.vec3.zero(this.currentMin);
-
-        const rotMatrix = glMatrix.mat3.create();
-        const rot4x4Mat = glMatrix.mat4.create();
-        glMatrix.mat4.fromRotation(rot4x4Mat, this.runningAngle, this.rotationAxis);
-        //glMatrix.mat4.scale(rot4x4Mat, rot4x4Mat, [this.scale, this.scale, this.scale]);
-        glMatrix.mat3.fromMat4(rotMatrix, rot4x4Mat);
-        glMatrix.mat3.transpose(rotMatrix, rotMatrix);
-        
-        //glMatrix.mat3.fromMat4(rotMatrix, this.transformMatrix);
-
-        //Arvo method to "find the extreme points by considering the product of the
-        //min and max with each component of M".
-        
-       
-        for (let i = 0; i < 3; ++i){
-            for(let j = 0; j < 3; ++j){
-                let a = rotMatrix[i*3 + j] * localMin[j];
-                let b = rotMatrix[i*3 + j] * localMax[j];
-                if (a < b){
-                    this.currentMin[i] += a;
-                    this.currentMax[i] += b;
-                }
-                else{
-                    this.currentMin[i] += b;
-                    this.currentMax[i] += a;
-                }
-            }
-        }
-        */
 
         //Only translate the bounding box do not rotate anything 
         glMatrix.vec3.scale(this.currentMax, this.defaultMax, this.scale);

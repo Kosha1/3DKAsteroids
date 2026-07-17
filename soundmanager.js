@@ -21,12 +21,9 @@ class SoundManager{
         this.#shipFailureSound = new Sound("./sounds/shipFailure.mp3");
         this.#finalShipSound = new Sound("./sounds/finalShipBoom.mp3");
 
-        //this.#ambientShipNoise = new Sound("./sounds/ambientShip.wav");
         this.#ambientShipNoise = new Sound("./sounds/ambientShip1.wav");
         this.#ambientShipNoise.setLoopTrue();
 
-        //this.#accelSound = new Sound("./sounds/accel0.mp3");
-        //this.#decelSound = new Sound("./sounds/deccel0.mp3");
         this.#accelSound = new Sound("./sounds/accel1.wav");
         this.#decelSound = new Sound("./sounds/deccel0.wav");
 
@@ -41,19 +38,6 @@ class SoundManager{
             this.sourceTrack.connect(this.audioContext.destination);
             this.sourceTrack.loop = true;
 
-            /*
-            //accel sound
-            this.accelTrack = this.audioContext.createMediaElementSource(this.#accelSound.getSoundObj());
-            this.accelGainNode = this.audioContext.createGain();
-            this.accelTrack.connect(this.accelGainNode);
-            this.accelGainNode.connect(this.audioContext.destination);
-
-            //decel sound
-            this.decelTrack = this.audioContext.createMediaElementSource(this.#decelSound.getSoundObj());
-            this.decelGainNode = this.audioContext.createGain();
-            this.decelTrack.connect(this.decelGainNode);
-            this.decelGainNode.connect(this.audioContext.destination);
-            */
            fetch("./sounds/accel1.wav")
            .then(res => res.arrayBuffer())
            .then(buf => this.audioContext.decodeAudioData(buf))
@@ -104,34 +88,6 @@ class SoundManager{
         }
     }
 
-    /*
-    playAccelSound(){
-        if (!this.#accelSound.isPlaying()){
-            if (this.#decelSound.isPlaying()){
-                //this.#decelSound.pauseAndReset();
-                this.#decelSound.stopSound();
-            }
-            this.#accelSound.play();
-        }
-    }
-    stopAccelSound(){
-        //this.#accelSound.pauseAndReset();
-        this.#accelSound.stopSound();
-    }
-    playDecelSound(){
-        if (!this.#decelSound.isPlaying()){
-            if (this.#accelSound.isPlaying()){
-                //this.#accelSound.pauseAndReset();
-                this.#accelSound.stopSound();
-            }
-            this.#decelSound.play();
-        }
-    }
-    stopDecelSound(){
-        //this.#decelSound.pauseAndReset();
-        this.#decelSound.stopSound();
-    }
-    */
     playBlasterFire(){this.#blasterSound.play();}
     playFinalShipExplosion(){
         if(this.#shipFailureSound.isPlaying()){
@@ -164,7 +120,6 @@ class SoundManager{
         this.#ambientShipNoise.play();
     }
     stopAmbientEngine(){
-        //this.#ambientShipNoise.stopSound();
         this.#ambientShipNoise.pauseAndReset();
     }
 }
@@ -207,19 +162,11 @@ class Sound{
 
     play(){//if sound is already playing, simply pause it, and restart it
         if (this.isPlaying() && !this.#sound.loop){
-        //if (!this.#sound.ended){
-            
-            
             this.#sound.pause();
             this.#sound.currentTime = 0;
-            this.#sound.play();
-            
-            //this.#intervalID = setTimeout(()=>this.#fadeAudio(true), 50);
-            //this.#intervalID = setInterval(()=>this.#fadeAudio(true), 50);
-
+            this.#sound.play();            
         }
         else{
-            //this.#sound.volume = volume;
             this.#sound.play();
         }
     }

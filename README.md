@@ -1,3 +1,14 @@
-Browser based 3D asteroids game
-Written from scratch without any engine using only Javascript, WebGL2, GLSL, glTF files, HTML, and CSS
-Play at https://webpages.scu.edu/ftp/kivanov/
+### Asteroids 3D
+- A 3D Asteroids game in the browser
+- Written from scratch without an engine and external libraries/frameworks
+- Program Uses:
+    - Javascript
+    - WebGL2 API
+    - GLSL shaders
+    - glTF files for static 3D models
+    - Custom glTF file parsing
+    - HTML
+    - CSS
+- Free 3D models downloaded from Sketchfab
+
+Play now at http://kasteroids.freeddns.org

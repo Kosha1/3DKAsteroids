@@ -17,8 +17,6 @@ class Model{
     constructor(glContext, shaders, depthProgInfo, JSONsrc, buffer, indexBuff, jsArray, gltextureArr){
         this.gl = glContext;
 
-        //this.vertexShader = shaders[0];
-        //this.fragmentShader = shaders[1];
         this.shaderProg = shaders;
 
         this.gltf = JSONsrc;
@@ -28,9 +26,7 @@ class Model{
 
         this.CPUArray = jsArray;//Actual buffer will be used to get the model vertices for collision detection
 
-        //this.initModelShaders();
         this.shaderProgramInfo = shaders;
-        //this.#initDepthShaders();
         this.depthProgramInfo = depthProgInfo;
     }
 
@@ -126,13 +122,6 @@ class Model{
         const projectionMatrix = glMatrix.mat4.create();
         glMatrix.mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
         this.gl.uniformMatrix4fv(this.shaderProgramInfo.uniformLocations.projectionMatrix, false, projectionMatrix);
-
-        /*
-        //Build the normal Matrix and put it into uniform in shader
-        const normalMatrix = glMatrix.mat3.create();
-        glMatrix.mat3.normalFromMat4(normalMatrix, modelTransformMatrix);
-        this.gl.uniformMatrix3fv(this.shaderProgramInfo.uniformLocations.normalMatrix, false, normalMatrix);
-        */
 
         //directional light
         this.gl.uniform3fv(this.shaderProgramInfo.uniformLocations.lightDir, lightdir);

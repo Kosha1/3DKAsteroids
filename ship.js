@@ -64,11 +64,6 @@ class Ship{
     }
 
     getOBBPoints(index){//index of the desired mesh; points in the oriented bounding box
-        //const max = glMatrix.vec3.create();
-        //glMatrix.vec3.scale(max, this.defaultMaxes[index], this.scale);
-        //const min = glMatrix.vec3.create();
-        //glMatrix.vec3.scale(min, this.defaultMins[index], this.scale);
-
         //The model matrix should automatically take care of scaling
         const max = glMatrix.vec3.clone(this.defaultMaxes[index]);
         const min = glMatrix.vec3.clone(this.defaultMins[index]);
@@ -109,10 +104,6 @@ class Ship{
     }
 
     #getMeshPoints(index){//index of desired mesh
-        /* OLD CODE NOT NEEDED ANYMORE
-        const fullTransformMat = glMatrix.mat4.create();
-        glMatrix.mat4.multiply(fullTransformMat, this.modelMatrix, this.meshMatrices[index]);
-        */
         const positionSpec = this.meshes[index].attributes.position;
 
         const float32ByteLength = 4;
@@ -129,11 +120,6 @@ class Ship{
 
             pointArray[i] = glMatrix.vec3.fromValues(xPos, yPos, zPos);
         }
-        /* OLD CODE NOT NEEDED ANYMORE
-        for (let i = 0; i < pointArray.length; i++){
-            glMatrix.vec3.transformMat4(pointArray[i], pointArray[i], fullTransformMat);
-        }
-        */
 
         //return a javascript object containing the index of the mesh and the array of default vertices (in local space)
         return {
@@ -220,10 +206,8 @@ class Ship{
 
     //debugging draw bounding boxes
     #initBoxBuffers(){
-        //this.AABBarr = new Float32Array(this.numMeshes*8*3);//8 points per meshbox; 3 vertices per point
         this.AABBarr = new Float32Array((this.numMeshes-1)*8*3);//8 points per meshbox; 3 vertices per point
         //line indices created once and never changed
-        //this.AABBIndexArr = new Uint16Array(this.numMeshes*24);
         this.AABBIndexArr = new Uint16Array((this.numMeshes-1)*24);
 
         let astIndex = 0;

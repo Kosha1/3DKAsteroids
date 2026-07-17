@@ -52,34 +52,6 @@ class AsteroidManager{
             asteroid.initBoundingBox();
             this.astList[astIndex].push(asteroid);
             
-            /*
-            if (i == 0){
-                let astIndex = getRandomInt(0, meshList.length);
-                let asteroid = new Asteroid(meshList[astIndex], astIndex);
-                asteroid.setRotAxis(getRandUnitVec());
-                asteroid.setPosition(glMatrix.vec3.fromValues(20.0, 0.0, -10.0));//was [20, 1, -2]
-                //asteroid.setScale(getRandomArbitrary(0.05, 0.3));
-                asteroid.setScale(0.3);
-                asteroid.setVelocityDir(glMatrix.vec3.fromValues(-1.0, 0.0, 0.0));
-                asteroid.setSpeed(getRandomArbitrary(0.0, 3));
-                asteroid.setRotSpeed(getRandomArbitrary(0.0, Math.PI));//in radians
-                asteroid.initBoundingBox();
-                this.astList[astIndex].push(asteroid);
-            }
-            if (i == 1){
-                let astIndex = getRandomInt(0, meshList.length);
-                let asteroid = new Asteroid(meshList[astIndex], astIndex);
-                asteroid.setRotAxis(getRandUnitVec());
-                asteroid.setPosition(glMatrix.vec3.fromValues(-10.0, 0.0, -10.0));
-                //asteroid.setScale(getRandomArbitrary(0.05, 0.3));
-                asteroid.setScale(0.2);
-                asteroid.setVelocityDir(glMatrix.vec3.fromValues(1.0, 0.0, 0.0));
-                asteroid.setSpeed(getRandomArbitrary(0.0, 3));
-                asteroid.setRotSpeed(getRandomArbitrary(0.0, Math.PI));//in radians
-                asteroid.initBoundingBox();
-                this.astList[astIndex].push(asteroid);
-            }
-            */
             
         }
         //Typed Array Buffers that will then directly be sent to GPU

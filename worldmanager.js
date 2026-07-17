@@ -56,7 +56,6 @@ class WorldManager{
     setAsteroidManager(astMan){
         this.AstManager = astMan;
 
-        //this.#updateCellGrid(true);//true since start of new Game when astManager is initialized
         this.#updateCellGrid();
 
         this.AstManReady = true;
@@ -146,11 +145,6 @@ class WorldManager{
 
             this.AstManager.update(deltaTime);
             this.StarDestroyer.update(deltaTime);
-
-            /* No need to change the grids if starDest is not moving
-            this.#updateGridCenter(this.StarDestroyer.getWorldPos());
-            this.#updateMinMaxBounds();//needed if grid Center changes
-            */
 
             this.#updateCellGrid();
 
@@ -448,30 +442,7 @@ class WorldManager{
         //only if player is in the ship bounding box do more detailed check of the model vertices
         if (AABBintersect(playerMax, playerMin, shipMax, shipMin)){
             console.log("Player Inside Ship AABB");
-            /* OLD CODE TRANSFERRED TO shipVertexAABBIntersect()
-            const modelMatrix = this.StarDestroyer.getModelMatrix();
-            const meshMatrices = this.StarDestroyer.getMeshMatrices();
-
-            const pointArrays = this.StarDestroyer.getPointArrays();
-
-            const fullMeshTransform = glMatrix.mat4.create();
-            for(let i = 0; i < pointArrays.length; ++i){
-                const meshIndex = pointArrays[i].index;
-                const meshMatrix = meshMatrices[meshIndex];
-                glMatrix.mat4.multiply(fullMeshTransform, modelMatrix, meshMatrix);
-                for (let j = 0; j < pointArrays[i].points.length; j+=3){
-                    //POINT MUST BE DEEP COPY; NOT REFERENCE SINCE IT TRANSFORMED 
-                    const point = glMatrix.vec3.clone(pointArrays[i].points[j]);
-                    glMatrix.vec3.transformMat4(point, point, fullMeshTransform);
-                    if (isPointInsideAABB(point, playerMax, playerMin)){
-                        console.log("Player-Ship Collision");
-                        return;
-                    }
-                }
-            }
-            */
             const collisPoint = this.#shipVertexAABBIntersect(playerMax, playerMin);
-            //if (this.#shipVertexAABBIntersect(playerMax, playerMin)){
             if (collisPoint != undefined){
                 console.log("Player-Ship Collision");
                 const distance = 0;//player is right next to the ship
@@ -549,13 +520,6 @@ class WorldManager{
                     const nearbyAsteroids = this.cellGrid[gridCellIndex];
                     for (let j = 0; j < nearbyAsteroids.length; j++){
                         const ast = nearbyAsteroids[j];
-                        /*
-                        if (isPointInsideAABB(laserPos, ast.getMax(), ast.getMin())){
-                            const astPos = ast.getWorldPos();//explosion center should be at asteroid's center, not laser's
-                            laser.setInactive();
-                            this.ExplosionManager.createExplosion(astPos, ast.getScale());
-                        }
-                        */
                         const lineSegment = laser.getBulletLineSegment();
                         if (testSegmentAABB(lineSegment[0], lineSegment[1], ast.getMax(), ast.getMin())){
                             const astPos = ast.getWorldPos();//explosion center should be at asteroid's center, not laser's

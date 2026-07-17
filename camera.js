@@ -25,129 +25,6 @@ function toRadians(angle){
     return angle * (Math.PI / 180);
 }
 
-/*
-class Camera{
-    q = glMatrix.quat.create();
-    position = glMatrix.vec3.fromValues(0.0, 0.0, 7.0);//7.0 original value
-
-
-    rotationMatrix = glMatrix.mat4.create();
-    updateMat = true;
-
-    moving = false;
-
-
-    keyPressedState = {
-        "a":false,
-        "d":false,
-        "w":false,
-        "s":false,
-        "ArrowLeft":false,
-        "ArrowRight":false,
-    }
-
-
-    constructor(){
-        this.getViewMatrix();
-
-    }
-    pressKey(key){
-        if (this.keyPressedState.hasOwnProperty(key)){
-            this.keyPressedState[key] = true;
-        }
-        if (key == '1'){
-            this.moving = !this.moving;//toggle movement boolean
-        }
-    }
-
-    releaseKey(key){
-        if (this.keyPressedState.hasOwnProperty(key)){
-            this.keyPressedState[key] = false;
-        }
-    }
-
-    updateCamera(deltaTime){
-        if (this.keyPressedState["a"]){
-            glMatrix.quat.multiply(this.q, this.q, posyaw);
-            this.updateMat = true;
-        }
-        if (this.keyPressedState["d"]){
-            glMatrix.quat.multiply(this.q, this.q, negyaw);
-            this.updateMat = true;
-        }
-        if (this.keyPressedState["w"]){
-            glMatrix.quat.multiply(this.q, this.q, pospitch);
-            this.updateMat = true;
-        }
-        if (this.keyPressedState["s"]){
-            glMatrix.quat.multiply(this.q, this.q, negpitch);
-            this.updateMat = true;
-        }
-        if (this.keyPressedState["ArrowLeft"]){
-            glMatrix.quat.multiply(this.q, this.q, negroll);
-            this.updateMat = true;
-        }
-        if (this.keyPressedState["ArrowRight"]){
-            glMatrix.quat.multiply(this.q, this.q, posroll);
-            this.updateMat = true;
-        }
-        if (this.moving){
-            
-            const forwardVec = this.getForwardVec();
-            const moveVec = glMatrix.vec3.create();
-            glMatrix.vec3.normalize(moveVec, forwardVec);
-
-            const distance = deltaTime * speed;
-            glMatrix.vec3.scale(moveVec, moveVec, distance);//was 0.05
-            glMatrix.vec3.add(this.position, this.position, moveVec);
-            this.updateMat = true;
-            
-        }
-    }
-
-    getViewMatrix(){
-        if (this.updateMat){
-            this.updateMat = false;
-            glMatrix.quat.normalize(this.q, this.q);
-
-            glMatrix.mat4.identity(this.rotationMatrix);
-            var conjq = glMatrix.quat.create();
-            glMatrix.quat.conjugate(conjq, this.q);
-            glMatrix.mat4.fromQuat(this.rotationMatrix, conjq);
-
-            var translationVec = glMatrix.vec3.create();
-            glMatrix.vec3.scale(translationVec, this.position, -1);
-            glMatrix.mat4.translate(this.rotationMatrix, this.rotationMatrix, translationVec);
-        }
-        return this.rotationMatrix;
-    }
-
-    getPosition(){return this.position;}
-    getQuat(){return this.q;}
-
-    getForwardVec(){
-        var forward = glMatrix.vec3.create();
-        glMatrix.vec3.transformQuat(forward, localForward, this.q);
-        glMatrix.vec3.normalize(forward, forward);
-        return forward;
-    }
-    getUpVec(){
-        var up = glMatrix.vec3.create();
-        glMatrix.vec3.transformQuat(up, localUp, this.q);
-        glMatrix.vec3.normalize(up, up);
-        return up;
-    }
-    getRightVec(){
-        var right = glMatrix.vec3.create();
-        glMatrix.vec3.transformQuat(right, localRight, this.q);
-        glMatrix.vec3.normalize(right, right);
-        return right;
-    }
-    
-}
-*/
-
-
 class Camera{
     #q;
     #position;
@@ -239,14 +116,6 @@ class FPVCamera extends Camera{
     #yawDecel = false;
     #pitchDecel = false;
 
-    /*
-    #posroll = glMatrix.quat.create();
-    #negroll = glMatrix.quat.create();
-    #posyaw = glMatrix.quat.create();
-    #negyaw = glMatrix.quat.create();
-    #pospitch = glMatrix.quat.create();
-    #negpitch = glMatrix.quat.create();
-    */
     #pitch = glMatrix.quat.create();
     #yaw = glMatrix.quat.create();
 
@@ -290,10 +159,6 @@ class FPVCamera extends Camera{
     }
 
     getSpeedText(){
-        //old non acceleration based
-        //const percent = (this.#speeds[this.#speedIndex] / this.#speeds[this.#speeds.length - 1]) * 100
-        //const str = this.#speeds[this.#speedIndex] + " (" + percent + "%)";
-
         const percent = Math.round((this.#currentSpeed / this.#maxSpeed) * 100);
         const roundedSpeed = Math.round((this.#currentSpeed + Number.EPSILON) * 100) / 100;
         const str = roundedSpeed + " (" + percent + "%)";
@@ -343,8 +208,6 @@ class FPVCamera extends Camera{
             this.#yawIncrement += this.#yawPitchAccelRate * deltaTime;
             if (this.#yawIncrement > this.#yawPitchMaxIncrement) this.#yawIncrement = this.#yawPitchMaxIncrement;
             glMatrix.quat.setAxisAngle(this.#yaw, localUp, toRadians(this.#yawIncrement/2));
-            //this.adjustOrientation(this.#posyaw);
-            //this.adjustOrientation(posyaw);
         }
         if (this.#keyPressedState["d"]){
             this.#yawDecel = false;
@@ -352,8 +215,6 @@ class FPVCamera extends Camera{
             this.#yawIncrement -= this.#yawPitchAccelRate * deltaTime;
             if (this.#yawIncrement < -1 * this.#yawPitchMaxIncrement) this.#yawIncrement = -1 * this.#yawPitchMaxIncrement;
             glMatrix.quat.setAxisAngle(this.#yaw, localUp, toRadians(this.#yawIncrement/2));
-            //this.adjustOrientation(this.#negyaw);
-            //this.adjustOrientation(negyaw);
         }
         if (this.#keyPressedState["w"]){
             updatePitch = true;
@@ -362,8 +223,6 @@ class FPVCamera extends Camera{
             this.#pitchIncrement += this.#yawPitchAccelRate * deltaTime;
             if (this.#pitchIncrement > this.#yawPitchMaxIncrement) this.#pitchIncrement = this.#yawPitchMaxIncrement;
             glMatrix.quat.setAxisAngle(this.#pitch, localRight, toRadians(this.#pitchIncrement/2));
-            //this.adjustOrientation(this.#pospitch);
-            //this.adjustOrientation(pospitch);
         }
         if (this.#keyPressedState["s"]){
             updatePitch = true;
@@ -372,8 +231,6 @@ class FPVCamera extends Camera{
             this.#pitchIncrement -= this.#yawPitchAccelRate * deltaTime;
             if (this.#pitchIncrement < -1 * this.#yawPitchMaxIncrement) this.#pitchIncrement = -1 * this.#yawPitchMaxIncrement;
             glMatrix.quat.setAxisAngle(this.#pitch, localRight, toRadians(this.#pitchIncrement/2));
-            //this.adjustOrientation(this.#negpitch);
-            //this.adjustOrientation(negpitch);
         }
         if (this.#keyPressedState["ArrowLeft"]){
             this.adjustOrientation(negroll);
@@ -429,33 +286,18 @@ class FPVCamera extends Camera{
         if (!this.#keyPressedState["ArrowUp"] || !this.#keyPressedState["ArrowDown"]){
             if (this.#keyPressedState["ArrowUp"] && this.#currentSpeed < this.#maxSpeed){
                 this.#currentSpeed += deltaTime * this.#accelRate;
-                //soundManager.playAccelSound();
                 if (this.#currentSpeed > this.#maxSpeed){
                     this.#currentSpeed = this.#maxSpeed;
-                    //soundManager.stopAccelSound();
                 }
-            }
-            else{
-                //soundManager.stopAccelSound();
             }
             if (this.#keyPressedState["ArrowDown"] && this.#currentSpeed > this.#minSpeed){
                 this.#currentSpeed -= deltaTime * this.#accelRate;
-                //soundManager.playDecelSound();
                 if (this.#currentSpeed < this.#minSpeed){
                     this.#currentSpeed = this.#minSpeed;
-                    //soundManager.stopDecelSound();
                 }
             }
-            else{
-                //soundManager.stopDecelSound();
-            }
-        }
-        else{
-            //soundManager.stopDecelSound();
-            //soundManager.stopAccelSound();
         }
 
-        //const speed = this.#speeds[this.#speedIndex];
         const speed = this.#currentSpeed;
         if (speed != 0){
             const forwardVec = this.getForwardVec();
@@ -525,54 +367,9 @@ class ShipCamera extends Camera{
         if (key == "x"){
             this.#viewIndex = (this.#viewIndex + 1) % this.#viewScroll.length;
         }
-        /*
-        if (this.#keyPressedState.hasOwnProperty(key)){
-            this.#keyPressedState[key] = true;
-        }
-        */
-    }
-    releaseKey(key){
-        /*
-        if (this.#keyPressedState.hasOwnProperty(key)){
-            this.#keyPressedState[key] = false;
-        }
-        */
     }
 
     updateCamera(shipPos){
-        /*
-        const vertRotLimit = 90;
-
-
-        if(this.#keyPressedState["j"]){
-            this.adjustGlobalOrientation(this.#negyaw);
-        }
-        if(this.#keyPressedState["l"]){
-            this.adjustGlobalOrientation(this.#posyaw);
-        }
-        if(this.#keyPressedState["i"] && this.#verticalAngle > -1 * vertRotLimit){
-            const quat = glMatrix.quat.create();
-            glMatrix.quat.setAxisAngle(quat, this.getRightVec(), -1 * toRadians(this.#angleIncrement));
-            this.adjustGlobalOrientation(quat);
-            this.#verticalAngle -= this.#angleIncrement;
-            if (this.#verticalAngle < -90){
-                glMatrix.quat.setAxisAngle(quat, this.getRightVec(), toRadians((-90 - this.#angleIncrement)));
-                this.adjustGlobalOrientation(quat);
-                this.#verticalAngle = -90.0;
-            }
-        }
-        if(this.#keyPressedState["k"] && this.#verticalAngle < vertRotLimit){
-            const quat = glMatrix.quat.create();
-            glMatrix.quat.setAxisAngle(quat, this.getRightVec(), toRadians(this.#angleIncrement));
-            this.adjustGlobalOrientation(quat);
-            this.#verticalAngle += this.#angleIncrement;
-            if (this.#verticalAngle > 90){
-                glMatrix.quat.setAxisAngle(quat, this.getRightVec(), toRadians((90 - this.#angleIncrement)));
-                this.adjustGlobalOrientation(quat);
-                this.#verticalAngle = 90.0;
-            }
-        }
-        */
         this.setQuat(this.#viewScroll[this.#viewIndex]);
 
         const newPos = glMatrix.vec3.create();
@@ -584,4 +381,3 @@ class ShipCamera extends Camera{
 }
 
 export {FPVCamera, ShipCamera};
-//export {Camera};
