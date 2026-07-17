@@ -368,6 +368,9 @@ class ShipCamera extends Camera{
             this.#viewIndex = (this.#viewIndex + 1) % this.#viewScroll.length;
         }
     }
+    releaseKey(key){
+        
+    }
 
     updateCamera(shipPos){
         this.setQuat(this.#viewScroll[this.#viewIndex]);
